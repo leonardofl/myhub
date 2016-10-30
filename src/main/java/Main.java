@@ -13,6 +13,11 @@ import static spark.Spark.get;
 
 import com.heroku.sdk.jdbc.DatabaseUrl;
 
+import static javax.measure.unit.SI.KILOGRAM;
+import javax.measure.quantity.Mass;
+import org.jscience.physics.model.RelativisticModel;
+import org.jscience.physics.amount.Amount;
+
 public class Main {
 
   public static void main(String[] args) {
@@ -22,12 +27,24 @@ public class Main {
 
     get("/hello", (req, res) -> "Hello World");
 
-    get("/", (request, response) -> {
-            Map<String, Object> attributes = new HashMap<>();
-            attributes.put("message", "Hello World!");
+    get("/science", (req, res) -> {
+        RelativisticModel.select();
+        Amount<Mass> m = Amount.valueOf("12 GeV").to(KILOGRAM);
+        return "E=mc^2: 12 GeV = " + m.toString();
+	});
 
-            return new ModelAndView(attributes, "index.ftl");
-        }, new FreeMarkerEngine());
+    get("/", (req, res) -> {
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("message", "Vamos explorar sua conta do GitHub! =)");
+        return new ModelAndView(attributes, "index.ftl");
+	}, new FreeMarkerEngine());
+    
+    
+    get("/jstart", (request, response) -> {
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("message", "Hello World!");
+        return new ModelAndView(attributes, "jstart.ftl");
+    }, new FreeMarkerEngine());
 
     get("/db", (req, res) -> {
       Connection connection = null;
