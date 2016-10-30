@@ -40,11 +40,11 @@
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
-          <finalName>helloworld</finalName>
+          <finalName>myhub</finalName>
           <appendAssemblyId>false</appendAssemblyId>
           <archive>
             <manifest>
-              <mainClass>Main</mainClass>
+              <mainClass>com.leo.Main</mainClass>
             </manifest>
           </archive>
         </configuration>
