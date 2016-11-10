@@ -8,6 +8,6 @@
 	<p>${message}</p>
 
 	<p>Vamos lá?</br>
-	<a href="#">Vamos! \o/</a></p>
+	<a href="${github_authorization_url}">Vamos! \o/</a></p>
 </body>
 </html>
