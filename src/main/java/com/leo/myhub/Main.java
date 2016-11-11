@@ -16,16 +16,25 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		GitHubClient gitHubClient = new GitHubClient();
+		GitHubClient gitHubClient = GitHubClient.getInstance();
 		
 		port(Integer.valueOf(System.getenv("PORT")));
 		staticFileLocation("/public");
 
 		get("/", (req, res) -> {
 			Map<String, Object> attributes = new HashMap<>();
-			attributes.put("message", "Vamos explorar sua conta do GitHub! =)");
 			attributes.put("github_authorization_url", gitHubClient.authorizationUrl());
 			return new ModelAndView(attributes, "index.ftl");
+		}, new FreeMarkerEngine());
+
+		get("/profile", (req, res) -> {
+			String code = req.queryParams("code");
+			String state = req.queryParams("state");
+			gitHubClient.askAccessToken(code, state);
+			String sshKey = gitHubClient.getSshKey();
+			Map<String, Object> attributes = new HashMap<>();
+			attributes.put("ssh_key", sshKey);
+			return new ModelAndView(attributes, "profile.ftl");
 		}, new FreeMarkerEngine());
 
 	}

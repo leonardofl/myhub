@@ -5,9 +5,8 @@
 
 	<h1>MyHub</h1>
 
-	<p>${message}</p>
+	<p>Let's explore your github account</p>
 
-	<p>Vamos lá?</br>
-	<a href="${github_authorization_url}">Vamos! \o/</a></p>
+	<p><a href="${github_authorization_url}">Let's go! \o/</a></p>
 </body>
 </html>
