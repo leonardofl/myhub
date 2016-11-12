@@ -18,12 +18,12 @@ import com.leo.myhub.config.Configuration;
 
 public class GitHubClient {
 
-	private static final String CLIENT_ID = "73f7ddeef4bc7e6c8447";
-	private static final String AUTHORIZATION_BASE_URL = "https://github.com/login/oauth/authorize";
-	private static final String ACCESS_TOKEN_BASE_URL = "https://github.com/login/oauth/access_token";
-	private static final String KEYS_URL = "https://api.github.com/user/keys";
-	private static final String REDIRECT_URI = "https://myhub.herokuapp.com/profile";
-	private static final String KEYS_SCOPES = "read:public_key read:gpg_key";
+	public static final String CLIENT_ID = "73f7ddeef4bc7e6c8447";
+	public static final String AUTHORIZATION_BASE_URL = "https://github.com/login/oauth/authorize";
+	public static final String ACCESS_TOKEN_BASE_URL = "https://github.com/login/oauth/access_token";
+	public static final String KEYS_URL = "https://api.github.com/user/keys";
+	public static final String REDIRECT_URI = "https://myhub.herokuapp.com/profile";
+	public static final String KEYS_SCOPES = "read:public_key read:gpg_key";
 
 	public static GitHubClient INSTANCE = new GitHubClient();
 
@@ -59,6 +59,8 @@ public class GitHubClient {
 	}
 
 	public void askAccessToken(String code, String state) {
+		System.out.println("********** code = " + code);
+		System.out.println("********** state = " + state);
 		if (!this.state.equals(state)) {
 			throw new IllegalArgumentException("States doesn't match");
 		}
@@ -75,7 +77,9 @@ public class GitHubClient {
 
 	private String client_secret() {
 		Configuration conf = new Configuration();
-		return conf.get(ConfigVar.GITHUB_OAUTH_CLIENT_SECRET);
+		String clientSecret = conf.get(ConfigVar.GITHUB_OAUTH_CLIENT_SECRET);
+		System.out.println("************* client secret = " + clientSecret);
+		return clientSecret;
 	}
 
 	public String getSshKey() {
