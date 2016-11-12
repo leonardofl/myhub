@@ -63,7 +63,7 @@ public class GitHubClient {
 			throw new IllegalArgumentException("States doesn't match");
 		}
 		Client client = ClientBuilder.newClient();
-		String response = client.target(ACCESS_TOKEN_BASE_URL).queryParam("client_id", "CLIENT_ID")
+		String response = client.target(ACCESS_TOKEN_BASE_URL).queryParam("client_id", CLIENT_ID)
 		        .queryParam("client_secret", client_secret()).queryParam("code", code)
 		        .queryParam("redirect_uri", REDIRECT_URI).queryParam("state", state).request(MediaType.APPLICATION_JSON)
 		        .get(String.class);

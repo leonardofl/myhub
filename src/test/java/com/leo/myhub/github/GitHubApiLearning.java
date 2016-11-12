@@ -42,4 +42,5 @@ public class GitHubApiLearning {
 		client.close();
 		assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
 	}
+	
 }
