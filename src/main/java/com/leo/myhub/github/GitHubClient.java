@@ -59,8 +59,6 @@ public class GitHubClient {
 	}
 
 	public void askAccessToken(String code, String state) {
-		System.out.println("********** code = " + code);
-		System.out.println("********** state = " + state);
 		if (!this.state.equals(state)) {
 			throw new IllegalArgumentException("States doesn't match");
 		}
@@ -69,6 +67,7 @@ public class GitHubClient {
 		        .queryParam("client_secret", client_secret()).queryParam("code", code)
 		        .queryParam("redirect_uri", REDIRECT_URI).queryParam("state", state).request(MediaType.APPLICATION_JSON)
 		        .get(String.class);
+		System.out.println("************ Response = " + response);
 		JSONObject json = new JSONObject(response);
 		accessToken = json.getString("access_token");
 		System.out.println("********** Access token = " + accessToken);

@@ -43,14 +43,4 @@ public class GitHubApiLearning {
 		assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
 	}
 
-//	it worked
-//	@Test
-//	public void temp() {
-//		Client client = ClientBuilder.newClient();
-//		String response = client.target(GitHubClient.ACCESS_TOKEN_BASE_URL).queryParam("client_id", GitHubClient.CLIENT_ID)
-//		        .queryParam("client_secret", "0a4bfdc7aeff6a6c8456eb8e4cb6f5c0cf39d7b8").queryParam("code", "f71e42f8fabbb9b8bd00")
-//		        .queryParam("redirect_uri", GitHubClient.REDIRECT_URI).queryParam("state", "979").request(MediaType.APPLICATION_JSON)
-//		        .get(String.class);
-//		System.out.println(response);
-//	}
 }
