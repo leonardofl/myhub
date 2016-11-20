@@ -7,6 +7,8 @@
 
 	<h2>My SSH keys registered on GitHub</h2>
 
-	<p>First key: ${ssh_key}</p>
+	<li>
+		<ul>${ssh_key.title}: ${ssh_key.key}	
+	</li>
 </body>
 </html>

@@ -67,32 +67,32 @@ public class GitHubClient {
 		        .queryParam("client_secret", client_secret()).queryParam("code", code)
 		        .queryParam("redirect_uri", REDIRECT_URI).queryParam("state", state).request(MediaType.APPLICATION_JSON)
 		        .get(String.class);
-		System.out.println("************ Response = " + response);
 		JSONObject json = new JSONObject(response);
 		accessToken = json.getString("access_token");
-		System.out.println("********** Access token = " + accessToken);
 		client.close();
 	}
 
 	private String client_secret() {
 		Configuration conf = new Configuration();
 		String clientSecret = conf.get(ConfigVar.GITHUB_OAUTH_CLIENT_SECRET);
-		System.out.println("************* client secret = " + clientSecret);
 		return clientSecret;
 	}
 
-	public String getSshKey() {
+	public SshKey getSshKey() {
 		Client client = ClientBuilder.newClient();
 		String response = client.target(KEYS_URL).request(MediaType.APPLICATION_JSON)
 		        .header("Authorization", "token " + accessToken).get(String.class);
 		client.close();
 		JSONArray json = new JSONArray(response);
-		List<String> keys = new ArrayList<>();
+		List<SshKey> keys = new ArrayList<>();
 		for (int i = 0; i < json.length(); i++) {
+			SshKey sshKey = new SshKey();
+			String title = json.getJSONObject(i).getString("title");
 			String key = json.getJSONObject(i).getString("key");
-			keys.add(key);
+			sshKey.title = title;
+			sshKey.key = key;
+			keys.add(sshKey);
 		}
-		System.out.println("*********** keys = " + keys);
 		return keys.get(0);
 	}
 

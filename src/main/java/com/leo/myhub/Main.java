@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.leo.myhub.github.GitHubClient;
+import com.leo.myhub.github.SshKey;
 
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -31,7 +32,7 @@ public class Main {
 			String code = req.queryParams("code");
 			String state = req.queryParams("state");
 			gitHubClient.askAccessToken(code, state);
-			String sshKey = gitHubClient.getSshKey();
+			SshKey sshKey = gitHubClient.getSshKey();
 			Map<String, Object> attributes = new HashMap<>();
 			attributes.put("ssh_key", sshKey);
 			return new ModelAndView(attributes, "profile.ftl");
