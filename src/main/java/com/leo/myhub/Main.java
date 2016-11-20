@@ -34,7 +34,8 @@ public class Main {
 			gitHubClient.askAccessToken(code, state);
 			SshKey sshKey = gitHubClient.getSshKey();
 			Map<String, Object> attributes = new HashMap<>();
-			attributes.put("ssh_key", sshKey);
+			attributes.put("ssh_key.title", sshKey.title);
+			attributes.put("ssh_key.key", sshKey.key);
 			return new ModelAndView(attributes, "profile.ftl");
 		}, new FreeMarkerEngine());
 
