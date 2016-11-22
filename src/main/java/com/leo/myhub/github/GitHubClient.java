@@ -78,7 +78,7 @@ public class GitHubClient {
 		return clientSecret;
 	}
 
-	public SshKey getSshKey() {
+	public List<SshKey> getSshKeys() {
 		Client client = ClientBuilder.newClient();
 		String response = client.target(KEYS_URL).request(MediaType.APPLICATION_JSON)
 		        .header("Authorization", "token " + accessToken).get(String.class);
@@ -86,14 +86,12 @@ public class GitHubClient {
 		JSONArray json = new JSONArray(response);
 		List<SshKey> keys = new ArrayList<>();
 		for (int i = 0; i < json.length(); i++) {
-			SshKey sshKey = new SshKey();
 			String title = json.getJSONObject(i).getString("title");
 			String key = json.getJSONObject(i).getString("key");
-			sshKey.title = title;
-			sshKey.key = key;
+			SshKey sshKey = new SshKey(title, key);
 			keys.add(sshKey);
 		}
-		return keys.get(0);
+		return keys;
 	}
 
 }

@@ -4,7 +4,9 @@ import static spark.Spark.get;
 import static spark.SparkBase.port;
 import static spark.SparkBase.staticFileLocation;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.leo.myhub.github.GitHubClient;
@@ -32,10 +34,18 @@ public class Main {
 			String code = req.queryParams("code");
 			String state = req.queryParams("state");
 			gitHubClient.askAccessToken(code, state);
-			SshKey sshKey = gitHubClient.getSshKey();
+			List<SshKey> sshKeys = gitHubClient.getSshKeys();
 			Map<String, Object> attributes = new HashMap<>();
-			attributes.put("ssh_key_title", sshKey.title);
-			attributes.put("ssh_key_key", sshKey.key);
+			attributes.put("ssh_keys", sshKeys);
+			return new ModelAndView(attributes, "profile.ftl");
+		}, new FreeMarkerEngine());
+
+		get("/hardcoded_profile", (req, res) -> {
+			Map<String, Object> attributes = new HashMap<>();
+			SshKey sshKey1 = new SshKey("work", "8DD3");
+			SshKey sshKey2 = new SshKey("home", "7FF7");
+			List<SshKey> sshKeys = Arrays.asList(new SshKey[] {sshKey1, sshKey2});  
+			attributes.put("ssh_keys", sshKeys);
 			return new ModelAndView(attributes, "profile.ftl");
 		}, new FreeMarkerEngine());
 
